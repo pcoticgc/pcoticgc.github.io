@@ -1,73 +1,54 @@
-html, body {
-    height: 100%;
-    margin: 10;
-    padding: 10;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #a3eed5; 
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('lifeExpectancyChart').getContext('2d');
+    let chart;
+    const dataUrl = 'life-expectancy.csv'; // Asegúrate de cambiar esto por la ruta correcta al archivo CSV
 
-.container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+    Papa.parse(dataUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+            const data = results.data;
+            const countries = [...new Set(data.map(row => row.Entity))].sort();
+            const countrySelect = document.getElementById('countrySelect');
+            
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
 
-.selector-container {
-    width: 80%; 
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #ffffff; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    margin-bottom: 20px; 
-}
+            countrySelect.addEventListener('change', function () {
+                if (chart) {
+                    chart.destroy();
+                }
 
-#countrySelect {
-    width: 50%; 
-    padding: 10px;
-    border: 2px solid #007bff; 
-    border-radius: 5px;
-    font-size: 16px; 
-    color: #495057; 
-    background-color: #e9ecef; 
-}
+                const selectedCountry = this.value;
+                const filteredData = data.filter(row => row.Entity === selectedCountry);
+                const years = filteredData.map(row => row.Year);
+                const lifeExpectancies = filteredData.map(row => row['Life expectancy']);
 
-#lifeExpectancyChart {
-    width: 80%; 
-    flex-grow: 1;
-    box-sizing: border-box;
-    background-color: #ffffff; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 20px; 
-}
-
-
-select, canvas {
-    transition: all 0.3s ease;
-}
-
-/
-#countrySelect:hover {
-    border-color: #0056b3; 
-    background-color: #dfe6e9; 
-}
-
-
-@media (max-width: 768px) {
-    #countrySelect {
-        width: 70%; 
-    }
-
-    .container, #lifeExpectancyChart {
-        width: 95%; 
-    }
-}
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                            label: 'Esperanza de Vida',
+                            data: lifeExpectancies,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: false
+                            }
+                        }
+                    }
+                });
+            });
+        }
+    });
+});
