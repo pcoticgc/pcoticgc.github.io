@@ -1,35 +1,73 @@
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Java', 'Python', 'PHP', 'JavaScript', 'C#', 'C++'],
-        datasets: [{
-            label: 'Popularidad (%)',
-            data: [22.2, 17.6, 8.8, 8, 7.7, 6.7],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+html, body {
+    height: 100%;
+    margin: 10;
+    padding: 10;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #a3eed5; 
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.selector-container {
+    width: 80%; 
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 20px; 
+}
+
+#countrySelect {
+    width: 50%; 
+    padding: 10px;
+    border: 2px solid #007bff; 
+    border-radius: 5px;
+    font-size: 16px; 
+    color: #495057; 
+    background-color: #e9ecef; 
+}
+
+#lifeExpectancyChart {
+    width: 80%; 
+    flex-grow: 1;
+    box-sizing: border-box;
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+}
+
+
+select, canvas {
+    transition: all 0.3s ease;
+}
+
+/
+#countrySelect:hover {
+    border-color: #0056b3; 
+    background-color: #dfe6e9; 
+}
+
+
+@media (max-width: 768px) {
+    #countrySelect {
+        width: 70%; 
     }
-});
+
+    .container, #lifeExpectancyChart {
+        width: 95%; 
+    }
+}
