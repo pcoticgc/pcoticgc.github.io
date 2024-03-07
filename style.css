@@ -1,32 +1,28 @@
 html, body {
     height: 100%;
-    margin: 10;
-    padding: 10;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #a3eed5; 
+    background-color: #b2fde4; /* Color de fondo suave */
 }
 
 .container {
-    flex-grow: 1;
+    flex-grow: 0.3;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .selector-container {
-    width: 80%; 
-    padding: 20px;
+    width: 30%; 
     box-sizing: border-box;
-    background-color: #ffffff; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: #c3f8e6; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
     margin-bottom: 20px; 
 }
 
@@ -42,23 +38,21 @@ html, body {
 
 #lifeExpectancyChart {
     width: 80%; 
-    flex-grow: 1;
     box-sizing: border-box;
     background-color: #ffffff; 
     border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 20px; 
+    
 }
 
-
+/* Transiciones suaves para los cambios de estado */
 select, canvas {
     transition: all 0.3s ease;
 }
 
-/
+/* Efecto al pasar el ratón sobre el selector */
 #countrySelect:hover {
     border-color: #0056b3; 
-    background-color: #dfe6e9; 
+    background-color: #dfe6e9; /
 }
 
 
